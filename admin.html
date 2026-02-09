@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم | Brthers Groub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                <span>لوحة التحكم</span>
+            </div>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li class="active">
+                    <a href="#dashboard" data-section="dashboard">
+                        <i class="fas fa-home"></i>
+                        <span>الرئيسية</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#orders" data-section="orders">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>الطلبات</span>
+                        <span class="badge" id="newOrdersCount">3</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#customers" data-section="customers">
+                        <i class="fas fa-users"></i>
+                        <span>العملاء</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#services" data-section="services">
+                        <i class="fas fa-tools"></i>
+                        <span>الخدمات</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#reports" data-section="reports">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>التقارير</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#settings" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>الإعدادات</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="admin-info">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=3498db&color=fff" alt="Admin">
+                <div>
+                    <h4>المدير</h4>
+                    <p>مدير النظام</p>
+                </div>
+            </div>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Top Header -->
+        <header class="top-header">
+            <button class="toggle-sidebar" id="toggleSidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="البحث في الطلبات..." id="globalSearch">
+            </div>
+
+            <div class="header-actions">
+                <button class="icon-btn" id="notificationsBtn">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">5</span>
+                </button>
+                <button class="icon-btn" id="messagesBtn">
+                    <i class="fas fa-envelope"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="theme-toggle">
+                    <i class="fas fa-moon"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="content-section active">
+            <div class="section-header">
+                <h1>نظرة عامة</h1>
+                <p>إحصائيات وآخر التحديثات</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-clipboard-list"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalOrders">156</h3>
+                        <p>إجمالي الطلبات</p>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+12%</span>
+                    </div>
+                </div>
+
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="pendingOrders">23</h3>
+                        <p>قيد الانتظار</p>
+                    </div>
+                    <div class="stat-trend">
+                        <span>جديد</span>
+                    </div>
+                </div>
+
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="completedOrders">128</h3>
+                        <p>مكتملة</p>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+8%</span>
+                    </div>
+                </div>
+
+                <div class="stat-card danger">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3 id="totalCustomers">89</h3>
+                        <p>العملاء</p>
+                    </div>
+                    <div class="stat-trend up">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>+5%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Row -->
+            <div class="charts-row">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h3>إحصائيات الطلبات الشهرية</h3>
+                        <select class="chart-filter">
+                            <option>2026</option>
+                            <option>2025</option>
+                        </select>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-container small">
+                    <div class="chart-header">
+                        <h3>توزيع الخدمات</h3>
+                    </div>
+                    <div class="chart-body">
+                        <canvas id="servicesChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="recent-orders">
+                <div class="section-title">
+                    <h3>أحدث الطلبات</h3>
+                    <a href="#orders" class="view-all">عرض الكل</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>رقم الطلب</th>
+                                <th>العميل</th>
+                                <th>الخدمة</th>
+                                <th>التاريخ</th>
+                                <th>الحالة</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentOrdersTable">
+                            <!-- Dynamic content -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Orders Section -->
+        <section id="orders" class="content-section">
+            <div class="section-header">
+                <h1>إدارة الطلبات</h1>
+                <p>متابعة وإدارة طلبات العملاء</p>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label>الحالة:</label>
+                    <select id="statusFilter">
+                        <option value="all">الكل</option>
+                        <option value="new">جديد</option>
+                        <option value="processing">قيد المعالجة</option>
+                        <option value="completed">مكتمل</option>
+                        <option value="cancelled">ملغي</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>الخدمة:</label>
+                    <select id="serviceFilter">
+                        <option value="all">الكل</option>
+                        <option value="painting">دهانات</option>
+                        <option value="stones">أحجار</option>
+                        <option value="finishing">تشطيبات</option>
+                        <option value="decor">ديكورات</option>
+                        <option value="gates">بوابات</option>
+                        <option value="furniture">أثاث</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>من:</label>
+                    <input type="date" id="dateFrom">
+                </div>
+                <div class="filter-group">
+                    <label>إلى:</label>
+                    <input type="date" id="dateTo">
+                </div>
+                <button class="btn btn-primary" onclick="applyFilters()">
+                    <i class="fas fa-filter"></i>
+                    تصفية
+                </button>
+                <button class="btn btn-secondary" onclick="exportOrders()">
+                    <i class="fas fa-download"></i>
+                    تصدير
+                </button>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="table-container">
+                <table class="data-table orders-table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input type="checkbox" id="selectAll">
+                            </th>
+                            <th>رقم الطلب</th>
+                            <th>العميل</th>
+                            <th>الهاتف</th>
+                            <th>الخدمة</th>
+                            <th>تاريخ الطلب</th>
+                            <th>الحالة</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <button class="page-btn" onclick="changePage(-1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+                <span class="page-info">صفحة <span id="currentPage">1</span> من <span id="totalPages">5</span></span>
+                <button class="page-btn" onclick="changePage(1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Order Details Modal -->
+        <div id="orderModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>تفاصيل الطلب <span id="modalOrderId">#001</span></h2>
+                    <button class="close-modal" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="order-details-grid">
+                        <div class="detail-group">
+                            <label>اسم العميل:</label>
+                            <p id="modalCustomerName">-</p>
+                        </div>
+                        <div class="detail-group">
+                            <label>رقم الهاتف:</label>
+                            <p id="modalPhone">-</p>
+                        </div>
+                        <div class="detail-group">
+                            <label>البريد الإلكتروني:</label>
+                            <p id="modalEmail">-</p>
+                        </div>
+                        <div class="detail-group">
+                            <label>الخدمة المطلوبة:</label>
+                            <p id="modalService">-</p>
+                        </div>
+                        <div class="detail-group full">
+                            <label>تفاصيل المشروع:</label>
+                            <p id="modalDetails">-</p>
+                        </div>
+                        <div class="detail-group">
+                            <label>تاريخ الطلب:</label>
+                            <p id="modalDate">-</p>
+                        </div>
+                        <div class="detail-group">
+                            <label>الحالة الحالية:</label>
+                            <select id="modalStatus" class="status-select">
+                                <option value="new">جديد</option>
+                                <option value="processing">قيد المعالجة</option>
+                                <option value="completed">مكتمل</option>
+                                <option value="cancelled">ملغي</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="order-timeline">
+                        <h4>سجل التحديثات</h4>
+                        <div class="timeline" id="orderTimeline">
+                            <!-- Dynamic timeline -->
+                        </div>
+                    </div>
+
+                    <div class="order-notes">
+                        <h4>ملاحظات</h4>
+                        <textarea id="orderNotes" rows="3" placeholder="أضف ملاحظاتك هنا..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeModal()">إغلاق</button>
+                    <button class="btn btn-primary" onclick="saveOrderChanges()">
+                        <i class="fas fa-save"></i>
+                        حفظ التغييرات
+                    </button>
+                    <button class="btn btn-success" onclick="printOrder()">
+                        <i class="fas fa-print"></i>
+                        طباعة
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customers Section -->
+        <section id="customers" class="content-section">
+            <div class="section-header">
+                <h1>العملاء</h1>
+                <p>قاعدة بيانات العملاء</p>
+            </div>
+            <div class="table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>الاسم</th>
+                            <th>الهاتف</th>
+                            <th>البريد</th>
+                            <th>عدد الطلبات</th>
+                            <th>آخر طلب</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customersTableBody">
+                        <!-- Dynamic content -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="content-section">
+            <div class="section-header">
+                <h1>الخدمات</h1>
+                <p>إدارة الخدمات المقدمة</p>
+            </div>
+            <div class="services-management">
+                <div class="service-cards" id="servicesList">
+                    <!-- Dynamic services -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports Section -->
+        <section id="reports" class="content-section">
+            <div class="section-header">
+                <h1>التقارير</h1>
+                <p>تقارير وتحليلات الأداء</p>
+            </div>
+            <div class="reports-grid">
+                <div class="report-card">
+                    <i class="fas fa-file-alt"></i>
+                    <h3>تقرير الطلبات الشهري</h3>
+                    <button class="btn btn-primary">تحميل PDF</button>
+                </div>
+                <div class="report-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>تحليل الخدمات</h3>
+                    <button class="btn btn-primary">تحميل PDF</button>
+                </div>
+                <div class="report-card">
+                    <i class="fas fa-users"></i>
+                    <h3>تقرير العملاء</h3>
+                    <button class="btn btn-primary">تحميل PDF</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="content-section">
+            <div class="section-header">
+                <h1>الإعدادات</h1>
+                <p>إعدادات النظام</p>
+            </div>
+            <div class="settings-form">
+                <div class="form-group">
+                    <label>اسم الشركة</label>
+                    <input type="text" value="Brthers Groub">
+                </div>
+                <div class="form-group">
+                    <label>البريد الإلكتروني للتواصل</label>
+                    <input type="email" value="info@brthersgroub.com">
+                </div>
+                <div class="form-group">
+                    <label>رقم الهاتف</label>
+                    <input type="tel" value="01111111111">
+                </div>
+                <button class="btn btn-primary">حفظ الإعدادات</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+</html>

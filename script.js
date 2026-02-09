@@ -43,7 +43,7 @@ const revealOnScroll = () => {
 revealElements.forEach((element) => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(30px)';
-    element.style.transition = 'all 0.5s ease-out';
+    element.style.transition = 'all 0.8s ease-out';
 });
 
 window.addEventListener('scroll', revealOnScroll);
